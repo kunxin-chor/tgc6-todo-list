@@ -21,6 +21,8 @@ The requirements we are installing are:
 ```
 pip3 install -r requirements.txt
 ```
+## Session keys
+Generated from https://randomkeygen.com/
 
 # Tasks
 What fields or information do we want to track for each todo
@@ -28,3 +30,23 @@ What fields or information do we want to track for each todo
 * Due date
 * Whether it is done
 * Comments
+
+# Flash Messages
+1. Ensure sessions are enabled. We have to make sure `app.secret_key` has been set
+
+2. In the `layout.template.html` add in the code to display the flash messages:
+
+    ```
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for m in messages %}
+            <div class="alert alert-success">
+                {{m}}
+            </div>
+            {% endfor %}
+        {%endif%}
+    {%endwith%}
+    ```
+
+    Check https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/ for documentation
+    on how to show a different class for errors
