@@ -7,7 +7,11 @@
 
 <form class="form-inline mb-3" method="GET">
     <input type="text" placeholder="Enter search terms" name="search-terms" class="form-control"/>
-    <input type="checkbox" name="is_done" class="form-check-input ml-3"/>Done
+    <label class="ml-3">Task done?</label>
+    <input type="radio" name="is_done" value="any" class="form-check-input ml-3"/>Any
+    <input type="radio" name="is_done" value="done" class="form-check-input ml-3"/>Done
+    <input type="radio" name="is_done" value="not-done" class="form-check-input ml-3"/>Not Done
+        
     <input type="submit" value ="Search" class="ml-3 form-control"/>
 </form>
 

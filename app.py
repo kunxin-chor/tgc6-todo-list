@@ -48,10 +48,11 @@ def home():
     })
     """
     search_for_done = request.args.get('is_done')
-    if search_for_done is not None and search_for_done is not False:
-        critera['done'] = True
+    print("search_for_done=", search_for_done)
 
-    print(critera)
+    # TODO: Tweak the if so that search for completed task is working
+    if search_for_done != "any" and search_for_done == "done":
+        critera['done'] = True
 
     tasks = client[DB_NAME].todos.find(critera)
     return render_template('home.template.html', tasks=tasks)
