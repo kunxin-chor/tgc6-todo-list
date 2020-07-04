@@ -10,7 +10,11 @@
 <ul class="list-group mt-3">
 {%for t in tasks %}
     <li class="list-group-item">
+        {%if t.done %}
+        <input type="checkbox" class="task-checkbox" data-task-id="{{t._id}}" checked/>
+        {%else%}
         <input type="checkbox" class="task-checkbox" data-task-id="{{t._id}}"/>
+        {%endif%}
         {{t.task_name}} 
     </li>
 {%endfor%}
@@ -23,16 +27,29 @@
 $(function(){
     $(".task-checkbox").change(function(){
         let task_id = $(this).data('task-id');
-        $.ajax({
-            'url': "{{url_for('check_task')}}",
-            'dataType': 'json',
-            'contentType':'application/json',
-            'data': JSON.stringify({
-                'task_id': task_id
-            }),
-            'type':'PATCH'
-        })
+        // $.ajax({
+        //     'url': "{{url_for('check_task')}}",
+        //     'dataType': 'json',
+        //     'contentType':'application/json',
+        //     'data': JSON.stringify({
+        //         'task_id': task_id
+        //     }),
+        //     'type':'PATCH'
+        // })
 
+        // alternative syntax using axios
+        let url ="{{url_for('check_task')}}";
+        let self = this;
+        axios.patch(url, {
+            'task_id':task_id
+        }).then(function(){
+            if (self.checked) {
+                toastr.success("Item has been mark as done!");
+            } else {
+                toastr.success("item has been mark as not done!");
+            }
+            
+        })
     })
 })
 
