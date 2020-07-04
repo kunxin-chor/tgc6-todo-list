@@ -28,7 +28,32 @@ app.secret_key = SESSION_KEY
 # Display all the tasks
 @app.route('/')
 def home():
-    tasks = client[DB_NAME].todos.find()
+    # extract out the search terms
+    search_terms = request.args.get('search-terms')
+
+    # critera dictionary to store all the critera
+    critera = {}
+
+    # if there are search terms, add it to the critera object
+    if search_terms != "" and search_terms is not None:
+        critera['task_name'] = {
+            "$regex": search_terms,
+            "$options": "i"
+        }
+
+    """
+    Translate the following mongo to pymongo
+     db.todos.find({
+    'done':true
+    })
+    """
+    search_for_done = request.args.get('is_done')
+    if search_for_done is not None and search_for_done is not False:
+        critera['done'] = True
+
+    print(critera)
+
+    tasks = client[DB_NAME].todos.find(critera)
     return render_template('home.template.html', tasks=tasks)
 
 
@@ -77,7 +102,7 @@ def check_task():
     task = client[DB_NAME].todos.find_one({
         "_id": ObjectId(task_id)
     })
-    print(task)
+
 
     # there is a chance task has no "done"
     # so if there is no key named "done", we just set "done" to False

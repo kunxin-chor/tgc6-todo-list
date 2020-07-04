@@ -50,3 +50,12 @@ What fields or information do we want to track for each todo
 
     Check https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/ for documentation
     on how to show a different class for errors
+
+# Find all the todos that are done
+
+In Mongo:
+```
+db.todos.find({
+    'done':true
+})
+```

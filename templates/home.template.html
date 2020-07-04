@@ -5,6 +5,12 @@
 {%block content%}
 <h2>Tasks</h2>
 
+<form class="form-inline mb-3" method="GET">
+    <input type="text" placeholder="Enter search terms" name="search-terms" class="form-control"/>
+    <input type="checkbox" name="is_done" class="form-check-input ml-3"/>Done
+    <input type="submit" value ="Search" class="ml-3 form-control"/>
+</form>
+
 <a href="{{url_for('create_task')}}" class="btn btn-primary">New Task</a>
 
 <ul class="list-group mt-3">
