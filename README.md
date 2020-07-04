@@ -21,3 +21,10 @@ The requirements we are installing are:
 ```
 pip3 install -r requirements.txt
 ```
+
+# Tasks
+What fields or information do we want to track for each todo
+* The task name
+* Due date
+* Whether it is done
+* Comments
